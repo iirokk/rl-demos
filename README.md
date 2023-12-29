@@ -12,4 +12,5 @@ Prerequisites:
 Setup:
 1. Install VSCode WSL extension
 2. Use VSCode Remote Explorer to connect to WSL Ubuntu distro
-3. Run ./setup.sh
+3. Clone this repository to WSL
+4. Run ./setup.sh
