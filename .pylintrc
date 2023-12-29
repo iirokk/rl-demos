@@ -1,0 +1,14 @@
+[MASTER]
+
+[MESSAGES CONTROL]
+
+# Disable the C0114 error for missing module docstrings
+disable=C0114
+
+[REPORTS]
+
+[TYPECHECK]
+
+[FORMAT]
+
+[LOGGING]
