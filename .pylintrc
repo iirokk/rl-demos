@@ -10,5 +10,6 @@ disable=C0114
 [TYPECHECK]
 
 [FORMAT]
+max-line-length=160
 
 [LOGGING]
