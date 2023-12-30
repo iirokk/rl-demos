@@ -1,4 +1,4 @@
-name: tensorflow_env
+name: pytorch_env
 channels:
   - defaults
   - conda-forge

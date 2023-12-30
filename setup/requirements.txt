@@ -1,6 +1,7 @@
-tensorflow[and-cuda]
 swig
 gymnasium
 gymnasium[box2d]
-keras
-keras-rl2
+torch
+torchvision
+torchaudio
+matplotlib
