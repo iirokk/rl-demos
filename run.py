@@ -1,8 +1,8 @@
-import lunar_lander
+import mario
 
 def main():
     """Run a reinforcement learning demo"""
-    lunar_lander.test_model()
+    mario.test_model()
 
 if __name__ == "__main__":
     main()

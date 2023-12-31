@@ -1,7 +1,11 @@
 swig
-gymnasium
-gymnasium[box2d]
 torch
 torchvision
 torchaudio
+tensordict
+torchrl
 matplotlib
+gym
+gym-notices
+gym_super_mario_bros
+nes-py
