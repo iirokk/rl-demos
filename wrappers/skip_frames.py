@@ -1,10 +1,10 @@
 from typing import Any, Tuple
-from gym.core import Env
+from nes_py import NESEnv
 from gym import Wrapper
 
 class SkipFrames(Wrapper):
 
-    def __init__(self, env: Env, skipped_frames: int):
+    def __init__(self, env: NESEnv, skipped_frames: int):
         super().__init__(env)
         self.skipped_frames = skipped_frames
 

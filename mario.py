@@ -3,18 +3,30 @@ import gym_super_mario_bros
 
 from gym_super_mario_bros.actions import RIGHT_ONLY
 from nes_py.wrappers import JoypadSpace
+from wrappers import wrapper_builder
+import agents.ddqn_agent
+
+
+N_EPISODES = 50000
 
 def train_model():
     """Train Reinforcement Learning model for Mario"""
+    env = wrapper_builder.build(get_env())
+    agent = agents.ddqn_agent.from_env(env)
 
-    env = get_env()
-    done = False
-    env.reset()
+    for episode in range(N_EPISODES):
+        done = False
+        state, _ = env.reset()
+        
+        while not done:
+            action = agent.choose_action(state)
+            new_state, reward, done, truncated, info = env.step(action)
+            agent.store_in_memory(state, action, reward, new_state, done)
+            agent.learn()
+            state = new_state
+        print("Completed episode: " + str(episode))
 
-    while not done:
-        action = env.action_space.sample()
-        _, _, done, _, _ = env.step(action)
-        env.render()
+    env.close()
 
 
 def get_env():

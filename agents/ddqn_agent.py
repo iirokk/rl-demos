@@ -4,6 +4,7 @@ from neural_networks.ddqn_nn import DdqnNN
 from tensordict import TensorDict
 from torchrl.data import TensorDictReplayBuffer, LazyMemmapStorage
 from torch import Tensor
+from gym.core import Env
 
 REPLAY_BUFFER_CAPACITY = 100000
 WEIGHTS_FILE_FORMAT = '_agent_weights.h5f'
@@ -57,8 +58,8 @@ class DdqnAgent:
             "state": torch.tensor(np.array(state), dtype=torch.float32),
             "action": torch.tensor(action),
             "reward": torch.tensor(reward),
-            "next_state": torch.tensor(np.array(next_state),  dtype=torch.float32),
-            "done": torch.tensor(done)
+            "next_state": torch.tensor(np.array(next_state), dtype=torch.float32),
+            "done": torch.tensor(done, dtype=torch.bool)
         }, batch_size=[]
         ))
 
@@ -99,3 +100,8 @@ class DdqnAgent:
         self.optimizer.step()
         self.learn_step_counter += 1
         self.decay_epsilon()
+
+
+
+def from_env(env:Env) -> DdqnAgent:
+    return DdqnAgent(input_dims=env.observation_space.shape, n_actions=env.action_space.n)

@@ -7,5 +7,6 @@ torchrl
 matplotlib
 gym
 gym-notices
+gym[other]
 gym_super_mario_bros
 nes-py
