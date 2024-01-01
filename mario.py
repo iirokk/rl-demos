@@ -25,7 +25,7 @@ def train_model():
         
         while not done:
             action = agent.choose_action(state)
-            new_state, reward, done, truncated, info = env.step(action)
+            new_state, reward, done, _, _ = env.step(action)
             agent.store_in_memory(state, action, reward, new_state, done)
             agent.learn()
             state = new_state
