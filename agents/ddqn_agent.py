@@ -101,6 +101,12 @@ class DdqnAgent:
         self.learn_step_counter += 1
         self.decay_epsilon()
 
+    def save_model(self, path):
+        torch.save(self.online_network.state_dict(), path)
+
+    def load_model(self, path):
+        self.online_network.load_state_dict(torch.load(path))
+        self.target_network.load_state_dict(torch.load(path))
 
 
 def from_env(env:Env) -> DdqnAgent:

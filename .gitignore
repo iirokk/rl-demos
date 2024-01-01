@@ -160,3 +160,4 @@ cython_debug/
 
 setup/*.deb
 chat*.md
+models/*.pt
