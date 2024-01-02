@@ -7,11 +7,12 @@ from nes_py.wrappers import JoypadSpace
 from wrappers import wrapper_builder
 import agents.ddqn_agent
 from agents.ddqn_agent import DdqnAgent
+from utils import persistence
 
 
 N_EPISODES = 50000
 SAVE_INTERVAL = 1000
-model_path = Path("models")
+model_path = Path("models/mario")
 
 
 def train_model():
@@ -47,7 +48,7 @@ def train_model():
 
         if (episode + 1) % SAVE_INTERVAL == 0:
             file_path = model_path.joinpath("model_ep_" + str(episode + 1) + ".pt")
-            agent.save_model(file_path)
+            persistence.save_model(agent, file_path)
             print("Saved model checkpoint: " + str(file_path))
 
     env.close()
@@ -60,7 +61,7 @@ def test_model(checkpoint: int):
     agent: DdqnAgent = agents.ddqn_agent.from_env(env)
 
     file_path = model_path.joinpath("model_ep_" + str(checkpoint) + ".pt")
-    agent.load_model(file_path)
+    persistence.load_model(agent, file_path)
     agent.epsilon = agent.epsilon_min
     agent.eps_min = 0.0
     agent.eps_decay = 0.0

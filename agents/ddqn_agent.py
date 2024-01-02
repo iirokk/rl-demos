@@ -39,7 +39,9 @@ class DdqnAgent:
         replay_buffer (TensorDictReplayBuffer): Replay buffer for storing and sampling experience.
     """
 
+    optimizer: torch.optim.Adam
     loss: torch.nn.MSELoss
+    replay_buffer: TensorDictReplayBuffer
 
     def __init__(self, input_dims, n_actions):
         self.n_actions = n_actions
@@ -168,25 +170,6 @@ class DdqnAgent:
         self.optimizer.step()
         self.learn_step_counter += 1
         self.decay_epsilon()
-
-    def save_model(self, path):
-        """
-        Save the model weights of the online network to a file.
-
-        Args:
-            path (str): The path to save the model.
-        """
-        torch.save(self.online_network.state_dict(), path)
-
-    def load_model(self, path):
-        """
-        Load the model weights from a file to the online and target networks.
-
-        Args:
-            path (str): The path to load the model from.
-        """
-        self.online_network.load_state_dict(torch.load(path))
-        self.target_network.load_state_dict(torch.load(path))
 
 
 def from_env(env: Env) -> DdqnAgent:
