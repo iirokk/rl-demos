@@ -3,6 +3,7 @@ from gym.core import Env
 
 from wrappers.skip_frames import SkipFrames
 
+
 def build(env: Env) -> Env:
     env = SkipFrames(env, skipped_frames=4)
     env = ResizeObservation(env, shape=84)

@@ -7,9 +7,9 @@ class DdqnNN(nn.Module):
     """
     Double Deep Q-Networks (DDQN) Neural Network
     """
-    
-    device = 'cuda'
-    
+
+    device = "cuda"
+
     def __init__(self, input_shape, n_actions, freeze=False):
         super().__init__()
         self.conv_layers = nn.Sequential(
@@ -18,7 +18,7 @@ class DdqnNN(nn.Module):
             nn.Conv2d(32, 64, kernel_size=4, stride=2),
             nn.ReLU(),
             nn.Conv2d(64, 64, kernel_size=3, stride=1),
-            nn.ReLU()
+            nn.ReLU(),
         )
 
         conv_out_size = self._get_conv_out(input_shape)
@@ -28,14 +28,13 @@ class DdqnNN(nn.Module):
             nn.Flatten(),
             nn.Linear(conv_out_size, 512),
             nn.ReLU(),
-            nn.Linear(512, n_actions)
+            nn.Linear(512, n_actions),
         )
 
         if freeze:
             self._freeze()
-        
-        self.to(self.device)
 
+        self.to(self.device)
 
     def _get_conv_out(self, shape):
         """
@@ -43,14 +42,12 @@ class DdqnNN(nn.Module):
         """
         return int(np.prod(self.conv_layers(torch.zeros(1, *shape)).size()))
 
-
     def _freeze(self):
         """
         Disable calculating gradients (for target network)
         """
         for p in self.network.parameters():
             p.requires_grad = False
-
 
     def forward(self, x):
         """
