@@ -7,7 +7,7 @@ from nes_py.wrappers import JoypadSpace
 from wrappers import wrapper_builder
 import agents.ddqn_agent
 from agents.ddqn_agent import DdqnAgent
-from utils import persistence
+from utils import persistence, logging
 
 
 N_EPISODES = 50000
@@ -33,18 +33,7 @@ def train_model():
             state = new_state
             total_reward += reward
 
-        print(
-            "Episode:",
-            episode,
-            "Total reward:",
-            total_reward,
-            "Epsilon:",
-            agent.epsilon,
-            "Size of replay buffer:",
-            len(agent.replay_buffer),
-            "Learn step counter:",
-            agent.learn_step_counter,
-        )
+        logging.log_episode(agent, episode, total_reward)
 
         if (episode + 1) % SAVE_INTERVAL == 0:
             file_path = model_path.joinpath("model_ep_" + str(episode + 1) + ".pt")
@@ -77,18 +66,7 @@ def test_model(checkpoint: int):
             state = new_state
             total_reward += reward
 
-        print(
-            "Episode:",
-            episode,
-            "Total reward:",
-            total_reward,
-            "Epsilon:",
-            agent.epsilon,
-            "Size of replay buffer:",
-            len(agent.replay_buffer),
-            "Learn step counter:",
-            agent.learn_step_counter,
-        )
+        logging.log_episode(agent, episode, total_reward)
 
     env.close()
 
